@@ -9,3 +9,4 @@ ingress_from_port = {
 }
 ingress_protocol = "tcp"
 ingress_cidr_block = ["0.0.0.0/0"]
+bucket = "tf-remote-statefile"

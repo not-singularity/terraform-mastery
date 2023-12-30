@@ -35,3 +35,7 @@ variable "ingress_cidr_block" {
   type = list(string)
   description = "Ingress CIDR Block"
 }
+
+variable "bucket" {
+  type = string
+}

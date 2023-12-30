@@ -12,3 +12,8 @@ module "networking" {
   ingress_protocol = var.ingress_protocol
   ingress_cidr_block = var.ingress_cidr_block
 }
+
+module "s3" {
+  source = "../modules/s3"
+  bucket = var.bucket
+}
