@@ -55,5 +55,28 @@ resource "aws_route_table_association" "rta" {
   route_table_id = aws_route_table.rt.id
 }
 
+resource "aws_security_group" "app_sg" {
+  name   = "app"
+  vpc_id = aws_vpc.app_vpc.id
+  count = length(var.ingress_description)
 
+  ingress {
+    description = element(var.ingress_description, count.index)
+    from_port   = element(var.ingress_from_port, count.index)
+    to_port     = element(var.ingress_to_port, count.index)
+    protocol    = element(var.ingress_protocol, count.index)
+    cidr_blocks = var.ingress_cidr_block
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "App-SG"
+  }
+}
 
