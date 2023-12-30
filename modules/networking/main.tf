@@ -58,13 +58,20 @@ resource "aws_route_table_association" "rta" {
 resource "aws_security_group" "app_sg" {
   name   = "app"
   vpc_id = aws_vpc.app_vpc.id
-  count = length(var.ingress_description)
 
   ingress {
-    description = element(var.ingress_description, count.index)
-    from_port   = element(var.ingress_from_port, count.index)
-    to_port     = element(var.ingress_to_port, count.index)
-    protocol    = element(var.ingress_protocol, count.index)
+    description = "HTTP Access"
+    from_port   = var.ingress_from_port[http]
+    to_port     = var.ingress_from_port[http]
+    protocol    = var.ingress_protocol
+    cidr_blocks = var.ingress_cidr_block
+  }
+
+   ingress {
+    description = "SSH Access"
+    from_port   = var.ingress_from_port[ssh]
+    to_port     = var.ingress_from_port[ssh]
+    protocol    = var.ingress_protocol
     cidr_blocks = var.ingress_cidr_block
   }
 

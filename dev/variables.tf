@@ -23,24 +23,12 @@ variable "azs" {
   description = "Availability Zones"
 }
 
-variable "ingress_description" {
-  type = list(string)
-  description = "Decription of Ingress in Security Group"
-}
-
 variable "ingress_from_port" {
-  type = list(string)
+  type = map
   description = "Ingress From Ports"
 }
-
-variable "ingress_to_port" {
-  type = list(string)
-  description = "Ingress To Ports"
-}
-
 variable "ingress_protocol" {
-  type = list(string)
-  description = "Ingress Protocols"
+  type = string
 }
 
 variable "ingress_cidr_block" {
