@@ -61,16 +61,16 @@ resource "aws_security_group" "app_sg" {
 
   ingress {
     description = "HTTP Access"
-    from_port   = var.ingress_from_port[http]
-    to_port     = var.ingress_from_port[http]
+    from_port   = var.ingress_from_port["http"]
+    to_port     = var.ingress_from_port["http"]
     protocol    = var.ingress_protocol
     cidr_blocks = var.ingress_cidr_block
   }
 
    ingress {
     description = "SSH Access"
-    from_port   = var.ingress_from_port[ssh]
-    to_port     = var.ingress_from_port[ssh]
+    from_port   = var.ingress_from_port["ssh"]
+    to_port     = var.ingress_from_port["ssh"]
     protocol    = var.ingress_protocol
     cidr_blocks = var.ingress_cidr_block
   }
