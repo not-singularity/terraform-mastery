@@ -7,10 +7,11 @@ resource "aws_vpc" "app_vpc" {
 }
 
 resource "aws_subnet" "public_subnets" {
-  count = length(var.public_subnets_cidrs)
-  vpc_id = aws_vpc.app_vpc.id
-  cidr_block = element(var.public_subnets_cidrs, count.index)
-  availability_zone = element(var.azs, count.index)
+  count                   = length(var.public_subnets_cidrs)
+  vpc_id                  = aws_vpc.app_vpc.id
+  cidr_block              = element(var.public_subnets_cidrs, count.index)
+  availability_zone       = element(var.azs, count.index)
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "Public subnet ${count.index + 1}"
@@ -18,22 +19,22 @@ resource "aws_subnet" "public_subnets" {
 }
 
 resource "aws_subnet" "private_subnets" {
-    count = length(var.private_subnet_cidrs)
-    vpc_id = aws_vpc.app_vpc.id
-    cidr_block = element(var.private_subnet_cidrs, count.index)
-    availability_zone = element(var.azs, count.index)
+  count             = length(var.private_subnet_cidrs)
+  vpc_id            = aws_vpc.app_vpc.id
+  cidr_block        = element(var.private_subnet_cidrs, count.index)
+  availability_zone = element(var.azs, count.index)
 
-    tags = {
-      Name = "Private Subnet ${count.index + 1}"
-    }
+  tags = {
+    Name = "Private Subnet ${count.index + 1}"
+  }
 }
 
 resource "aws_internet_gateway" "igw" {
-    vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.app_vpc.id
 
-    tags = {
-      Name = "App VPC IGW"
-    }
+  tags = {
+    Name = "App VPC IGW"
+  }
 }
 
 resource "aws_route_table" "rt" {
@@ -50,8 +51,8 @@ resource "aws_route_table" "rt" {
 }
 
 resource "aws_route_table_association" "rta" {
-  count = length(var.public_subnets_cidrs)
-  subnet_id = element(aws_subnet.public_subnets[*].id, count.index)
+  count          = length(var.public_subnets_cidrs)
+  subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.rt.id
 }
 
@@ -61,16 +62,16 @@ resource "aws_security_group" "app_sg" {
 
   ingress {
     description = "HTTP Access"
-    from_port   = var.ingress_from_port["http"]
-    to_port     = var.ingress_from_port["http"]
+    from_port   = var.ingress_from_port["port_1"]
+    to_port     = var.ingress_from_port["port_2"]
     protocol    = var.ingress_protocol
     cidr_blocks = var.ingress_cidr_block
   }
 
-   ingress {
-    description = "SSH Access"
-    from_port   = var.ingress_from_port["ssh"]
-    to_port     = var.ingress_from_port["ssh"]
+  ingress {
+    description = "TCP Access"
+    from_port   = var.ingress_from_port["port_2"]
+    to_port     = var.ingress_from_port["port_2"]
     protocol    = var.ingress_protocol
     cidr_blocks = var.ingress_cidr_block
   }

@@ -39,3 +39,53 @@ variable "ingress_cidr_block" {
 variable "bucket" {
   type = string
 }
+
+variable "ami" {
+  type        = string
+  description = "AMI ID of EC2 Instance"
+}
+
+variable "instance_type" {
+  type        = string
+  description = "EC2 Instance Type"
+}
+
+variable "storage" {
+  type        = number
+  description = "DB Storage"
+}
+
+variable "storage_type" {
+  type        = string
+  description = "DB Storage Type"
+}
+
+variable "engine" {
+  type        = string
+  description = "DB Engine"
+}
+
+variable "engine_version" {
+  type        = string
+  description = "DB Engine Version"
+}
+
+variable "instance_class" {
+  type        = string
+  description = "DB Instance Class"
+}
+
+variable "db_name" {
+  type        = string
+  description = "DB Name"
+}
+
+variable "db_user" {
+  type        = string
+  description = "DB Username"
+}
+
+variable "db_pass" {
+  type        = string
+  description = "DB Password"
+}
