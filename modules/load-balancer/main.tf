@@ -5,7 +5,7 @@ resource "aws_lb" "load_balancer" {
   security_groups    = [var.lb_security_group]
   subnets            = [var.lb_subnets[0], var.lb_subnets[1]]
   tags = {
-    Name = "App LB"
+    Name = "App LB-${var.environment_name}"
   }
 }
 

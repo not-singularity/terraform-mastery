@@ -39,6 +39,10 @@ variable "db_pass" {
 }
 
 variable "db_subnet_group" {
-  type        = string
+  type        = list(string)
   description = "DB Subnet Group"
+}
+
+variable "environment_name" {
+  type = string
 }

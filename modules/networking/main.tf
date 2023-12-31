@@ -2,7 +2,7 @@ resource "aws_vpc" "app_vpc" {
   cidr_block = var.vpc_cidr_block
 
   tags = {
-    Name = "App VPC"
+    Name = "App VPC-${var.environment_name}"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_subnet" "public_subnets" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "Public subnet ${count.index + 1}"
+    Name = "Public subnet-${count.index + 1}-${var.environment_name}"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = element(var.azs, count.index)
 
   tags = {
-    Name = "Private Subnet ${count.index + 1}"
+    Name = "Private Subnet-${count.index + 1}-${var.environment_name}"
   }
 }
 
@@ -33,7 +33,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.app_vpc.id
 
   tags = {
-    Name = "App VPC IGW"
+    Name = "App VPC IGW-${var.environment_name}"
   }
 }
 
@@ -46,7 +46,7 @@ resource "aws_route_table" "rt" {
   }
 
   tags = {
-    Name = "Route Table"
+    Name = "Route Table-${var.environment_name}"
   }
 }
 
@@ -84,7 +84,7 @@ resource "aws_security_group" "app_sg" {
   }
 
   tags = {
-    Name = "App-SG"
+    Name = "App-SG-${var.environment_name}"
   }
 }
 

@@ -17,3 +17,7 @@ variable "lb_target_id" {
   type        = list(string)
   description = "Load Balancer Target ID"
 }
+
+variable "environment_name" {
+  type = string
+}

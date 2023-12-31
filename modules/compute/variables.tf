@@ -17,3 +17,7 @@ variable "security_group" {
   type        = string
   description = "Security Group for EC2 Instance"
 }
+
+variable "environment_name" {
+  type = string
+}

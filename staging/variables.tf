@@ -4,8 +4,8 @@ variable "region" {
 }
 
 variable "environment_name" {
-  type    = string
-  default = "dev"
+  type = string
+  default = "staging"
 }
 
 variable "vpc_cidr_block" {
